@@ -20,8 +20,12 @@ End-to-end data analysis pipeline for NCR (National Capital Region) ride booking
 ├── ncr_ride_bookings.csv         # Dataset (NOT committed — see below)
 ├── outputs/
 │   └── ncr_dashboard.png         # Generated dashboard (created on run)
+├── .github/                      # Issue & PR templates
 ├── requirements.txt
 ├── LICENSE
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── SECURITY.md
 └── README.md
 ```
 
@@ -101,6 +105,10 @@ Generated at `outputs/ncr_dashboard.png`:
 * Customer segmentation analysis
 * Predictive modeling (cancellation prediction)
 * Real-time data pipeline integration
+
+## Contributing
+
+Issues and pull requests are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and guidelines. By participating, you agree to our [Code of Conduct](CODE_OF_CONDUCT.md). Security reports go to [SECURITY.md](SECURITY.md) — please don't open a public issue for them.
 
 ## License
 
