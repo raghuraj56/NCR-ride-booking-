@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Contributing guide
+    url: https://github.com/raghuraj56/NCR-ride-booking-/blob/main/CONTRIBUTING.md
+    about: How to set up, test and submit changes to this project.
+  - name: 🔒 Security vulnerabilities
+    url: https://github.com/raghuraj56/NCR-ride-booking-/blob/main/SECURITY.md
+    about: Please report security issues privately — do not open a public issue.
