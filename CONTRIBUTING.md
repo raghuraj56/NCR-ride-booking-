@@ -22,17 +22,24 @@ Thanks for your interest in contributing! 🎉
 3. Install dependencies:
 
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirements.txt -r requirements-dev.txt
    ```
 
 4. Make your changes in `analysis_script.py` (the notebook imports from it).
-5. Test the full pipeline on your dataset:
+5. Run the test suite (CI runs it on every push and PR):
+
+   ```bash
+   pytest
+   ```
+
+   If you add functionality, add a test for it in `tests/test_analysis.py`.
+6. Also smoke-test the full pipeline on your dataset:
 
    ```bash
    python analysis_script.py --data /path/to/ncr_ride_bookings.csv
    ```
 
-6. Commit with a clear, conventional message:
+7. Commit with a clear, conventional message:
 
    ```
    feat: add peak-hour KPI
@@ -40,7 +47,7 @@ Thanks for your interest in contributing! 🎉
    docs: document cancellation-rate definition
    ```
 
-7. Push your branch and open a **pull request** against `main`.
+8. Push your branch and open a **pull request** against `main`.
 
 ## Pull request guidelines
 
