@@ -1,0 +1,2 @@
+# Dev / test dependencies (CI and contributors)
+pytest>=8.0

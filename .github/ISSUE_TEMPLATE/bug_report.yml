@@ -1,0 +1,42 @@
+name: 🐛 Bug report
+description: Something is broken or producing wrong results
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug. If numbers look wrong, include the expected vs actual values.
+      placeholder: The KPI printed ...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run `python analysis_script.py --data ...`
+        2. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Where did it run?
+      options:
+        - Locally (CLI)
+        - Google Colab
+        - Jupyter notebook
+        - Other / not sure
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output / error
+      render: shell
+  - type: textarea
+    id: version
+    attributes:
+      label: Package versions (pandas, numpy, matplotlib)
+      description: Output of `pip freeze | grep -E "pandas|numpy|matplotlib"`

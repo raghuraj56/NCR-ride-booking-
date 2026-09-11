@@ -1,5 +1,11 @@
 # NCR Ride Bookings — Data Analysis & Business Intelligence Dashboard
 
+[![Tests](https://github.com/raghuraj56/NCR-ride-booking-/actions/workflows/tests.yml/badge.svg)](https://github.com/raghuraj56/NCR-ride-booking-/actions/workflows/tests.yml)
+
+![Dashboard](https://github.com/raghuraj56/NCR-ride-booking-/releases/download/dashboard-sample/ncr_dashboard.png)
+
+> Sample dashboard output — layout preview generated from a synthetic demo dataset. Run the pipeline on the real `ncr_ride_bookings.csv` to regenerate it with actual figures.
+
 ## Overview
 
 End-to-end data analysis pipeline for NCR (National Capital Region) ride bookings using **Python, Pandas, NumPy and Matplotlib**. It transforms raw ride data into actionable business insights through **data cleaning, feature engineering, KPI analysis and dashboard visualization**, simulating a real-world BI use case for ride-hailing platforms like Uber/Ola.
@@ -20,8 +26,18 @@ End-to-end data analysis pipeline for NCR (National Capital Region) ride booking
 ├── ncr_ride_bookings.csv         # Dataset (NOT committed — see below)
 ├── outputs/
 │   └── ncr_dashboard.png         # Generated dashboard (created on run)
-├── requirements.txt
+├── tests/
+│   └── test_analysis.py          # pytest suite (run by CI)
+├── .github/
+│   ├── workflows/tests.yml       # CI: runs tests on push & PRs
+│   ├── ISSUE_TEMPLATE/           # Bug report & feature request forms
+│   └── PULL_REQUEST_TEMPLATE.md
+├── requirements.txt              # Runtime dependencies
+├── requirements-dev.txt          # Test dependencies (pytest)
 ├── LICENSE
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── SECURITY.md
 └── README.md
 ```
 
@@ -53,6 +69,13 @@ python analysis_script.py
 python analysis_script.py --data /path/to/ncr_ride_bookings.csv --output outputs/ncr_dashboard.png
 ```
 
+**Run the tests:**
+
+```bash
+pip install -r requirements.txt -r requirements-dev.txt
+pytest
+```
+
 **In Colab:** upload `ncr_ride_bookings.csv` and `analysis_script.py` to `/content`, then open the notebook and run its single cell.
 
 ## Methodology
@@ -74,7 +97,7 @@ python analysis_script.py --data /path/to/ncr_ride_bookings.csv --output outputs
 
 ## Dashboard
 
-Generated at `outputs/ncr_dashboard.png`:
+Generated at `outputs/ncr_dashboard.png` (see the top of this README for a rendered sample):
 
 1. **KPI header cards** — total rides, completed, cancellation rate, revenue, profit, avg revenue per ride
 2. **Monthly Revenue & Profit** — grouped bars over `YYYY-MM` periods (grouped, not stacked, because profit is a *subset* of revenue)
@@ -101,6 +124,10 @@ Generated at `outputs/ncr_dashboard.png`:
 * Customer segmentation analysis
 * Predictive modeling (cancellation prediction)
 * Real-time data pipeline integration
+
+## Contributing
+
+Issues and pull requests are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and guidelines. By participating, you agree to our [Code of Conduct](CODE_OF_CONDUCT.md). Security reports go to [SECURITY.md](SECURITY.md) — please don't open a public issue for them.
 
 ## License
 

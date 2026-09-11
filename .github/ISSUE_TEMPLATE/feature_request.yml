@@ -1,0 +1,28 @@
+name: 💡 Feature request
+description: Suggest a new KPI, chart, or improvement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: e.g. "There's no way to see cancellations by vehicle type"
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe your proposed solution
+      description: What KPI, chart, or capability should be added?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you've considered
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: I'm willing to open a pull request for this myself
