@@ -1,5 +1,9 @@
 # NCR Ride Bookings — Data Analysis & Business Intelligence Dashboard
 
+![Dashboard](https://github.com/raghuraj56/NCR-ride-booking-/releases/download/dashboard-sample/ncr_dashboard.png)
+
+> Sample dashboard output — layout preview generated from a synthetic demo dataset. Run the pipeline on the real `ncr_ride_bookings.csv` to regenerate it with actual figures.
+
 ## Overview
 
 End-to-end data analysis pipeline for NCR (National Capital Region) ride bookings using **Python, Pandas, NumPy and Matplotlib**. It transforms raw ride data into actionable business insights through **data cleaning, feature engineering, KPI analysis and dashboard visualization**, simulating a real-world BI use case for ride-hailing platforms like Uber/Ola.
@@ -78,7 +82,7 @@ python analysis_script.py --data /path/to/ncr_ride_bookings.csv --output outputs
 
 ## Dashboard
 
-Generated at `outputs/ncr_dashboard.png`:
+Generated at `outputs/ncr_dashboard.png` (see the top of this README for a rendered sample):
 
 1. **KPI header cards** — total rides, completed, cancellation rate, revenue, profit, avg revenue per ride
 2. **Monthly Revenue & Profit** — grouped bars over `YYYY-MM` periods (grouped, not stacked, because profit is a *subset* of revenue)
