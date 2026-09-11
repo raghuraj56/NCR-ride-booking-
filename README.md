@@ -1,5 +1,7 @@
 # NCR Ride Bookings — Data Analysis & Business Intelligence Dashboard
 
+[![Tests](https://github.com/raghuraj56/NCR-ride-booking-/actions/workflows/tests.yml/badge.svg)](https://github.com/raghuraj56/NCR-ride-booking-/actions/workflows/tests.yml)
+
 ![Dashboard](https://github.com/raghuraj56/NCR-ride-booking-/releases/download/dashboard-sample/ncr_dashboard.png)
 
 > Sample dashboard output — layout preview generated from a synthetic demo dataset. Run the pipeline on the real `ncr_ride_bookings.csv` to regenerate it with actual figures.
@@ -24,8 +26,14 @@ End-to-end data analysis pipeline for NCR (National Capital Region) ride booking
 ├── ncr_ride_bookings.csv         # Dataset (NOT committed — see below)
 ├── outputs/
 │   └── ncr_dashboard.png         # Generated dashboard (created on run)
-├── .github/                      # Issue & PR templates
-├── requirements.txt
+├── tests/
+│   └── test_analysis.py          # pytest suite (run by CI)
+├── .github/
+│   ├── workflows/tests.yml       # CI: runs tests on push & PRs
+│   ├── ISSUE_TEMPLATE/           # Bug report & feature request forms
+│   └── PULL_REQUEST_TEMPLATE.md
+├── requirements.txt              # Runtime dependencies
+├── requirements-dev.txt          # Test dependencies (pytest)
 ├── LICENSE
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
@@ -59,6 +67,13 @@ python analysis_script.py
 
 # Or with custom paths
 python analysis_script.py --data /path/to/ncr_ride_bookings.csv --output outputs/ncr_dashboard.png
+```
+
+**Run the tests:**
+
+```bash
+pip install -r requirements.txt -r requirements-dev.txt
+pytest
 ```
 
 **In Colab:** upload `ncr_ride_bookings.csv` and `analysis_script.py` to `/content`, then open the notebook and run its single cell.
