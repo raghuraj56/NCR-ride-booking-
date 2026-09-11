@@ -65,6 +65,7 @@ def load_data(path):
     if not os.path.exists(path):
         raise FileNotFoundError(f"File not found: {path}")
     df = pd.read_csv(path)
+    df.columns = df.columns.str.strip()  # tolerate padded CSV headers
 
     missing = REQUIRED_COLUMNS - set(df.columns)
     if missing:
@@ -82,8 +83,15 @@ def parse_dates(series):
     whose day is > 12 (e.g. 31/06/2024 becomes NaT). We try both
     conventions and keep whichever parses more values.
     """
-    month_first = pd.to_datetime(series, errors="coerce")
-    day_first = pd.to_datetime(series, errors="coerce", dayfirst=True)
+    # pandas emits a UserWarning whenever the tried convention doesn't
+    # match the string format; both attempts below are intentional probes.
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        month_first = pd.to_datetime(series, errors="coerce")
+        if month_first.notna().all():
+            # Fully parsed with the default convention (ISO / unambiguous) — done.
+            return month_first
+        day_first = pd.to_datetime(series, errors="coerce", dayfirst=True)
     return day_first if day_first.notna().sum() > month_first.notna().sum() else month_first
 
 
@@ -105,6 +113,12 @@ def clean_data(df):
     df["Booking Value"] = pd.to_numeric(df["Booking Value"], errors="coerce")
 
     df = df.dropna(subset=["Date", "Booking Value"])
+
+    if df.empty:
+        raise ValueError(
+            "No valid rows remain after cleaning — check the Date and "
+            "Booking Value columns in the source CSV."
+        )
 
     return df
 
@@ -184,6 +198,12 @@ def create_dashboard(df, kpis, output_path):
     gs.update(hspace=0.55, wspace=0.30)  # headroom for rotated x-labels
 
     completed = df[df["Status_Clean"] == "Completed"]
+
+    if completed.empty:
+        raise ValueError(
+            "No completed rides to visualize — cannot build a dashboard "
+            "without at least one completed booking."
+        )
 
     # ── 0. KPI HEADER ROW ────────────────────────────────
     kpi_cards = [
@@ -286,8 +306,12 @@ def create_dashboard(df, kpis, output_path):
     # ── 4. PIE: BOOKING STATUS ─────────
     ax4 = fig.add_subplot(gs[2, 2])
 
+    # reindex (not list-indexing) so absent categories default to 0
+    # instead of raising KeyError
     status_counts = df["Status_Clean"].value_counts()
-    top3 = status_counts[["Completed", "Cancelled", "Incomplete"]].fillna(0)
+    top3 = status_counts.reindex(
+        ["Completed", "Cancelled", "Incomplete"], fill_value=0
+    )
 
     labels = ["Completed", "Cancelled", "Incomplete"]
     colors = [COLORS["green"], COLORS["red"], COLORS["accent1"]]
