@@ -1,10 +1,15 @@
-# NCR Ride Bookings — Data Analysis & Business Intelligence Dashboard
+# 🚗 NCR Ride Bookings — Data Analysis & Business Intelligence Dashboard
 
-## Overview
+## 📌 Overview
 
-End-to-end data analysis pipeline for NCR (National Capital Region) ride bookings using **Python, Pandas, NumPy and Matplotlib**. It transforms raw ride data into actionable business insights through **data cleaning, feature engineering, KPI analysis and dashboard visualization**, simulating a real-world BI use case for ride-hailing platforms like Uber/Ola.
+This project presents an **end-to-end data analysis pipeline** for NCR ride bookings using **Python, Pandas, and Matplotlib**.
+It transforms raw ride data into actionable business insights through **data cleaning, feature engineering, KPI analysis, and dashboard visualization**.
 
-## Objectives
+The goal is to simulate a **real-world business intelligence use case** for ride-hailing platforms like Uber/Ola.
+
+---
+
+## 🎯 Objectives
 
 * Analyze ride booking trends and performance
 * Identify revenue and profit patterns
@@ -12,102 +17,156 @@ End-to-end data analysis pipeline for NCR (National Capital Region) ride booking
 * Measure operational efficiency (cancellations & incomplete rides)
 * Provide actionable business recommendations
 
-## Project Structure
+---
+
+## 🛠️ Tech Stack
+
+* **Python**
+* **Pandas** – Data manipulation
+* **NumPy** – Numerical operations
+* **Matplotlib** – Data visualization
+* **OS / Warnings** – System handling
+
+---
+
+## 📂 Project Structure
 
 ```
-├── analysis_script.py            # Main analysis pipeline (run this)
-├── NCR ride booking0.ipynb       # Notebook wrapper for Colab
-├── ncr_ride_bookings.csv         # Dataset (NOT committed — see below)
+├── ncr_ride_bookings.csv     # Dataset
+├── analysis_script.py        # Main Python script
 ├── outputs/
-│   └── ncr_dashboard.png         # Generated dashboard (created on run)
-├── requirements.txt
-├── LICENSE
-└── README.md
+│   └── ncr_dashboard.png     # Generated dashboard
+└── README.md                 # Project documentation
 ```
 
-### Dataset
+---
 
-The dataset is **not committed** to this repo. The pipeline expects a CSV named `ncr_ride_bookings.csv` with at least these columns:
+## ⚙️ Features Implemented
 
-| Column | Description |
-|---|---|
-| `Booking ID` | Unique booking identifier |
-| `Customer ID` | Unique customer identifier |
-| `Date` | Booking date (day-first or month-first is auto-detected) |
-| `Booking Status` | e.g. Completed, Cancelled by Customer/Driver, No Driver Found, Incomplete |
-| `Vehicle Type` | e.g. Auto, Bike, Go Mini, Go Sedan, Premier Sedan, Uber XL, eBike |
-| `Booking Value` | Ride fare (₹) |
+### 🔹 1. Data Cleaning
 
-Place the file next to `analysis_script.py`, or pass `--data PATH`.
+* Date parsing & validation
+* Standardized booking statuses
+* Removed invalid/missing records
+* Cleaned ID fields
 
-## How to Run
+### 🔹 2. Feature Engineering
 
-```bash
-# 1. Install dependencies
-pip install -r requirements.txt
+* Extracted **Year, Month, Month Name**
+* Derived:
 
-# 2. Run the pipeline (uses ./ncr_ride_bookings.csv by default)
-python analysis_script.py
+  * Revenue
+  * Cost (assumed 65%)
+  * Profit (35% margin)
 
-# Or with custom paths
-python analysis_script.py --data /path/to/ncr_ride_bookings.csv --output outputs/ncr_dashboard.png
-```
+---
 
-**In Colab:** upload `ncr_ride_bookings.csv` and `analysis_script.py` to `/content`, then open the notebook and run its single cell.
+### 🔹 3. KPI Metrics
 
-## Methodology
+* Total Rides
+* Completed / Cancelled / Incomplete Rides
+* Cancellation Rate
+* Total Revenue & Profit
+* Average Revenue per Ride
 
-### Data Cleaning
-* Date parsing with **auto-detection of day-first vs month-first format** (avoids silently dropping `dd/mm/yyyy` dates with day > 12)
-* Standardized booking statuses (all cancellation reasons collapse to "Cancelled")
-* Numeric coercion of `Booking Value`; rows with unparseable dates or fares dropped
-* Warning printed for unrecognized statuses
+---
 
-### Feature Engineering
-* Year, Month, Month name, and a unique `YYYY-MM` period key per month
-* Revenue = Booking Value; Cost = 65% of revenue (assumption); Profit = Revenue − Cost
+## 📊 Dashboard Visualizations
 
-### KPI Definitions (documented, consistent)
-* **Revenue / Profit / Avg revenue** — **completed rides only**, since cancelled and incomplete bookings never realise a fare
-* **Cancellation rate** = cancelled ÷ (completed + cancelled), ×100. Incomplete rides are excluded from the denominator: a booking that started but never finished is neither a completed sale nor a cancellation
-* **Potential revenue gain** = cancelled × 50% × avg completed revenue — an explicit, documented assumption (half of cancelled bookings would have converted)
+### 📈 1. Monthly Revenue & Profit (Stacked Bar)
 
-## Dashboard
+* Shows revenue distribution over time
+* Highlights profit contribution
 
-Generated at `outputs/ncr_dashboard.png`:
+### 🚗 2. Vehicle Type Analysis (Bar Chart)
 
-1. **KPI header cards** — total rides, completed, cancellation rate, revenue, profit, avg revenue per ride
-2. **Monthly Revenue & Profit** — grouped bars over `YYYY-MM` periods (grouped, not stacked, because profit is a *subset* of revenue)
-3. **Vehicle Type analysis** — ride volume per vehicle with profit annotation
-4. **Profit contribution donut** — share of profit by vehicle type
-5. **Booking status pie** — completed / cancelled / incomplete distribution
+* Number of rides per vehicle
+* Profit per vehicle (annotated)
 
-## Key Insights (from the full dataset run)
+### 🍩 3. Profit Contribution (Donut Chart)
+
+* Percentage share of profit by vehicle type
+
+### 🥧 4. Booking Status Distribution (Pie Chart)
+
+* Completed vs Cancelled vs Incomplete rides
+
+---
+
+## 💡 Key Insights
 
 * Strong revenue generation with stable monthly trends
-* Certain vehicle types dominate both volume and profitability
-* A high cancellation rate materially impacts potential revenue
+* Certain vehicle types dominate both **volume and profitability**
+* Cancellation rate significantly impacts potential revenue
 * Incomplete rides indicate operational inefficiencies
 
-## Business Recommendations
+---
 
-1. **Reduce cancellations** — incentivize drivers for low cancellation rates; improve driver allocation
-2. **Upsell premium vehicles** — target high-volume users with upgrade offers to raise revenue per ride
-3. **Improve operational efficiency** — analyze root causes of incomplete rides; invest in fleet maintenance
+## 📈 Business Recommendations
 
-## Future Improvements
+### 1. Reduce Cancellations
+
+* Incentivize drivers for low cancellation rates
+* Improve driver allocation algorithms
+
+### 2. Upsell Premium Vehicles
+
+* Target high-volume users with upgrade offers
+* Increase revenue per ride
+
+### 3. Improve Operational Efficiency
+
+* Analyze root causes of incomplete rides
+* Implement fleet maintenance strategies
+
+---
+
+## 🚀 How to Run
+
+```bash
+# Install dependencies
+pip install pandas numpy matplotlib
+
+# Run script
+python analysis_script.py
+```
+
+---
+
+## 📸 Output
+
+The script generates a professional dashboard:
+
+```
+outputs/ncr_dashboard.png
+```
+
+---
+
+## 🌟 Project Highlights
+
+* End-to-end **data analysis pipeline**
+* Strong **business storytelling**
+* Clean and modular code structure
+* Real-world **BI dashboard simulation**
+
+---
+
+## 📌 Future Improvements
 
 * Interactive dashboard (Streamlit / Power BI)
 * Customer segmentation analysis
 * Predictive modeling (cancellation prediction)
 * Real-time data pipeline integration
 
-## License
+---
 
-MIT — see [LICENSE](LICENSE).
+## 👨‍💻 Author
 
-## Author
+**Senior Data Analyst Project (Portfolio Ready)**
 
-**Raghuraj Pratap Singh** — Data Analyst portfolio project.
+---
 
-⭐ If you like this project, give it a star and feel free to fork or contribute!
+## ⭐ If you like this project
+
+Give it a ⭐ on GitHub and feel free to fork or contribute!
